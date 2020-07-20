@@ -1,0 +1,25 @@
+[package]
+name = "crates_unittest"
+version = "1.0.0"
+edition = "2018"
+
+include = [
+    "LICENSE",
+    "Readme.md",
+    "Cargo.toml",
+    "src/lib.rs",
+]
+
+[lib]
+name = "crates_unittest"
+crate-type = ["rlib"]
+
+[features]
+default = ["async_proc_macro"]
+
+
+[target.'cfg(not(target_env = "sgx"))'.dependencies]
+sgx_tstd = { rev = "v1.1.2", git = "https://github.com/apache/teaclave-sgx-sdk.git" }
+inventory = { version = "0.1.6" }
+proc_macro = { path = "./proc_macro" }
+async_proc_macro = { path = "./async_proc_macro", optional = true }
